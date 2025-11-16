@@ -101,14 +101,14 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <a href="{{ route('companies.create') }}" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="{{ route('companies.create') }}" class="inline-flex items-center justify-center px-6 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
                             {{ __('dashboard.create_company') }}
                         </a>
-                        <a href="{{ route('companies.index') }}" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-10 text-black rounded-lg font-bold hover:bg-opacity-20 transition border-2 border-white border-opacity-40 backdrop-blur-sm shadow-lg" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
+                        <a href="{{ route('companies.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-white bg-opacity-10 text-black rounded-lg font-bold hover:bg-opacity-20 transition border-2 border-white border-opacity-40 backdrop-blur-sm shadow-lg" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
                             {{ __('dashboard.view_all') }}
                         </a>
                     </div>
@@ -127,14 +127,14 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <a href="{{ route('forms.create') }}" class="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="{{ route('forms.create') }}" class="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
                             {{ __('forms.create_form') }}
                         </a>
-                        <a href="{{ route('forms.index') }}" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-10 text-black rounded-lg font-bold hover:bg-opacity-20 transition border-2 border-white border-opacity-40 backdrop-blur-sm shadow-lg" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
+                        <a href="{{ route('forms.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-white bg-opacity-10 text-black rounded-lg font-bold hover:bg-opacity-20 transition border-2 border-white border-opacity-40 backdrop-blur-sm shadow-lg" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
                             {{ __('dashboard.view_all') }}
                         </a>
                     </div>
