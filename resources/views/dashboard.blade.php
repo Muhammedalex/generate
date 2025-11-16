@@ -108,7 +108,7 @@
                             </svg>
                             {{ __('dashboard.create_company') }}
                         </a>
-                        <a href="{{ route('companies.index') }}" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-20 text-white rounded-lg font-semibold hover:bg-opacity-30 transition border border-white border-opacity-30">
+                        <a href="{{ route('companies.index') }}" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-10 text-black rounded-lg font-bold hover:bg-opacity-20 transition border-2 border-white border-opacity-40 backdrop-blur-sm shadow-lg" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
                             {{ __('dashboard.view_all') }}
                         </a>
                     </div>
@@ -134,7 +134,7 @@
                             </svg>
                             {{ __('forms.create_form') }}
                         </a>
-                        <a href="{{ route('forms.index') }}" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-20 text-white rounded-lg font-semibold hover:bg-opacity-30 transition border border-white border-opacity-30">
+                        <a href="{{ route('forms.index') }}" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-10 text-black rounded-lg font-bold hover:bg-opacity-20 transition border-2 border-white border-opacity-40 backdrop-blur-sm shadow-lg" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
                             {{ __('dashboard.view_all') }}
                         </a>
                     </div>
