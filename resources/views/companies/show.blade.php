@@ -442,8 +442,8 @@
                         <path d="{{ $socialPlatforms[$link['type']]['icon'] }}"/>
                     </svg>
                     <div class="social-text">
-                        <span>{{ $link['label'] }}</span>
-                        @if(app()->getLocale() === 'ar' && isset($socialPlatforms[$link['type']]['label_ar']))
+                        <span>{{ $socialPlatforms[$link['type']]['label_en'] }}</span>
+                        @if(isset($socialPlatforms[$link['type']]['label_ar']))
                             <span class="separator">|</span>
                             <span>{{ $socialPlatforms[$link['type']]['label_ar'] }}</span>
                         @endif
@@ -458,7 +458,7 @@
         
         <!-- Footer -->
         <div class="footer-text">
-            {{ $company->name }} {{ date('Y') }} ©
+            Muhammed Aymen Kamal {{ date('Y') }} ©
         </div>
     </div>
 </body>
