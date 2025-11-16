@@ -34,7 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // Company Management Routes
-    Route::resource('companies', CompanyController::class);
+    Route::resource('companies', CompanyController::class)->except(['show']);
+    
+    // Company Details Route (for authenticated users with full details)
+    Route::get('/companies/{company}', [CompanyController::class, 'details'])->name('companies.details');
     
     // QR Code Routes
     Route::prefix('companies/{company}')->name('companies.')->group(function () {

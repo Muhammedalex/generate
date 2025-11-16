@@ -11,6 +11,7 @@ return [
     'create_form' => 'إنشاء نموذج',
     'recent_companies' => 'الشركات الأخيرة',
     'active' => 'نشط',
+    'inactive' => 'غير نشط',
     'no_companies_yet' => 'لا توجد شركات بعد',
     'create_first_company' => 'أنشئ شركتك الأولى',
     'quick_stats' => 'إحصائيات سريعة',

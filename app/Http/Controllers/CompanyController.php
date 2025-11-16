@@ -84,6 +84,19 @@ class CompanyController extends Controller
     }
 
     /**
+     * Display company details for authenticated users (with full details).
+     */
+    public function details(Company $company)
+    {
+        // Check authorization
+        if ($company->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('companies.details', compact('company'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Company $company)

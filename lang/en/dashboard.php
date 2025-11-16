@@ -11,6 +11,7 @@ return [
     'create_form' => 'Create Form',
     'recent_companies' => 'Recent Companies',
     'active' => 'Active',
+    'inactive' => 'Inactive',
     'no_companies_yet' => 'No companies yet',
     'create_first_company' => 'Create your first company',
     'quick_stats' => 'Quick Stats',

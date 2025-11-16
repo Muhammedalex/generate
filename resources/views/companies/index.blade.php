@@ -66,7 +66,7 @@
 
                         <!-- Actions -->
                         <div class="flex items-center gap-2 mt-6">
-                            <a href="{{ route('companies.show', $company) }}" 
+                            <a href="{{ route('companies.details', $company) }}" 
                                class="flex-1 text-center px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition">
                                 {{ __('companies.view') }}
                             </a>
@@ -75,10 +75,18 @@
                                 {{ __('companies.edit') }}
                             </a>
                             <a href="{{ route('companies.qrcode.show', $company) }}" 
+                               target="_blank"
                                class="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition"
-                               title="{{ __('companies.qr_code') }}">
+                               title="{{ __('companies.view_qr') }}">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+                                </svg>
+                            </a>
+                            <a href="{{ route('companies.qrcode.download', $company) }}" 
+                               class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition"
+                               title="{{ __('companies.download_qr') }}">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                 </svg>
                             </a>
                             <form action="{{ route('companies.destroy', $company) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('companies.confirm_delete') }}');">

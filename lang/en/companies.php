@@ -68,5 +68,10 @@ return [
     'copy_link' => 'Copy Link',
     'link_copied' => 'Link copied to clipboard!',
     'confirm_delete' => 'Are you sure you want to delete this company? This action cannot be undone.',
+    'statistics' => 'Statistics',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'slug' => 'Slug',
+    'inactive' => 'Inactive',
 ];
 
