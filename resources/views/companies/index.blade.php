@@ -36,13 +36,13 @@
                         @if($company->logo_path)
                             <div class="flex items-center justify-center h-full">
                                 <img src="{{ Storage::url($company->logo_path) }}" 
-                                     alt="{{ $company->name }}" 
+                                     alt="{{ $company->getTranslatedName() }}" 
                                      class="h-20 w-20 object-contain rounded-lg bg-white p-2">
                             </div>
                         @else
                             <div class="flex items-center justify-center h-full">
                                 <div class="text-4xl font-bold text-white opacity-80">
-                                    {{ strtoupper(substr($company->name, 0, 1)) }}
+                                    {{ strtoupper(substr($company->getTranslatedName(), 0, 1)) }}
                                 </div>
                             </div>
                         @endif
@@ -52,9 +52,9 @@
                     <div class="p-6">
                         <div class="flex items-start justify-between mb-4">
                             <div class="flex-1">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">{{ $company->name }}</h3>
-                                @if($company->description)
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ Str::limit($company->description, 80) }}</p>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">{{ $company->getTranslatedName() }}</h3>
+                                @if($company->getTranslatedDescription())
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ Str::limit($company->getTranslatedDescription(), 80) }}</p>
                                 @endif
                             </div>
                             @if($company->is_active)

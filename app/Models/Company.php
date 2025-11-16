@@ -13,9 +13,7 @@ class Company extends Model
 
     protected $fillable = [
         'user_id',
-        'name',
         'slug',
-        'description',
         'email',
         'phone',
         'website',
@@ -26,14 +24,10 @@ class Company extends Model
         'logo_path',
         'social_links',
         'is_active',
-        'name_translations',
-        'description_translations',
     ];
 
     protected $casts = [
         'social_links' => 'array',
-        'name_translations' => 'array',
-        'description_translations' => 'array',
         'is_active' => 'boolean',
     ];
 
@@ -44,15 +38,22 @@ class Company extends Model
     {
         parent::boot();
 
-        static::creating(function ($company) {
-            if (empty($company->slug)) {
-                $company->slug = Str::slug($company->name);
-            }
-        });
-
-        static::updating(function ($company) {
-            if ($company->isDirty('name') && empty($company->slug)) {
-                $company->slug = Str::slug($company->name);
+        static::saved(function ($company) {
+            // Generate or update slug from English translation
+            $nameEn = $company->getEnglishTranslation('name');
+            if (!empty($nameEn)) {
+                $newSlug = Str::slug($nameEn);
+                if (empty($company->slug) || $newSlug !== $company->slug) {
+                    // Ensure slug is unique
+                    $originalSlug = $newSlug;
+                    $counter = 1;
+                    while (static::where('slug', $newSlug)->where('id', '!=', $company->id)->exists()) {
+                        $newSlug = $originalSlug . '-' . $counter;
+                        $counter++;
+                    }
+                    $company->slug = $newSlug;
+                    $company->saveQuietly();
+                }
             }
         });
     }
@@ -78,7 +79,7 @@ class Company extends Model
      */
     public function getTranslatedName(?string $locale = null): string
     {
-        return $this->getTranslated('name', $locale) ?: $this->attributes['name'] ?? '';
+        return $this->getTranslated('name', $locale);
     }
 
     /**
@@ -86,6 +87,6 @@ class Company extends Model
      */
     public function getTranslatedDescription(?string $locale = null): string
     {
-        return $this->getTranslated('description', $locale) ?: $this->attributes['description'] ?? '';
+        return $this->getTranslated('description', $locale);
     }
 }

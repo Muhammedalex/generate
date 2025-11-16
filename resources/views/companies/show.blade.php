@@ -3,19 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $company->name }}</title>
-    <meta name="description" content="{{ $company->description }}">
+    <title>{{ $company->getTranslatedName() }}</title>
+    <meta name="description" content="{{ $company->getTranslatedDescription() }}">
     
     <!-- Fonts -->
-    @if(app()->getLocale() === 'ar')
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    @else
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    @endif
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
@@ -26,8 +20,12 @@
             --accent-color: {{ $company->accent_color ?? $company->primary_color }};
         }
         
+        * {
+            font-family: 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+        }
+        
         body {
-            font-family: {{ app()->getLocale() === 'ar' ? "'Tajawal', 'Cairo', sans-serif" : "'Poppins', sans-serif" }};
+            font-family: 'Tajawal', ui-sans-serif, system-ui, sans-serif;
             background: linear-gradient(135deg, 
                 color-mix(in srgb, var(--primary-color) 6%, white) 0%, 
                 color-mix(in srgb, var(--secondary-color) 8%, white) 50%,
@@ -387,21 +385,21 @@
         <!-- Logo -->
         <div class="logo-container">
             @if($company->logo_path)
-                <img src="{{ Storage::url($company->logo_path) }}" alt="{{ $company->name }}">
+                <img src="{{ Storage::url($company->logo_path) }}" alt="{{ $company->getTranslatedName() }}">
             @else
-                <div class="logo-initial">{{ strtoupper(substr($company->name, 0, 1)) }}</div>
+                <div class="logo-initial">{{ strtoupper(substr($company->getTranslatedName(), 0, 1)) }}</div>
             @endif
         </div>
         
         <!-- Company Name -->
         <div class="company-name">
-            <h1>{{ $company->name }}</h1>
+            <h1>{{ $company->getTranslatedName() }}</h1>
         </div>
         
         <!-- Description -->
-        @if($company->description)
+        @if($company->getTranslatedDescription())
         <div class="company-description">
-            {{ $company->description }}
+            {{ $company->getTranslatedDescription() }}
         </div>
         @endif
         

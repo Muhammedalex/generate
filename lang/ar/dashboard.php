@@ -17,5 +17,11 @@ return [
     'quick_stats' => 'إحصائيات سريعة',
     'companies_created' => 'الشركات المُنشأة',
     'active_now' => 'نشط الآن',
+    'total_forms' => 'إجمالي النماذج',
+    'recent_forms' => 'النماذج الأخيرة',
+    'no_forms_yet' => 'لا توجد نماذج بعد',
+    'create_first_form' => 'أنشئ أول نموذج لك',
+    'forms_created' => 'النماذج المُنشأة',
+    'published_forms' => 'النماذج المنشورة',
 ];
 

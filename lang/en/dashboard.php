@@ -17,5 +17,11 @@ return [
     'quick_stats' => 'Quick Stats',
     'companies_created' => 'Companies Created',
     'active_now' => 'Active Now',
+    'total_forms' => 'Total Forms',
+    'recent_forms' => 'Recent Forms',
+    'no_forms_yet' => 'No forms yet',
+    'create_first_form' => 'Create your first form',
+    'forms_created' => 'Forms Created',
+    'published_forms' => 'Published Forms',
 ];
 

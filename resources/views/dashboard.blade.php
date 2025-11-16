@@ -2,6 +2,10 @@
 
 @section('title', __('common.dashboard'))
 
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,16 +68,16 @@
             </div>
             @endif
 
-            <!-- Quick Actions Card -->
-            <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 text-white">
+            <!-- Total Forms Card -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 border-l-4 border-purple-500">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-purple-100 mb-1">{{ __('dashboard.quick_actions') }}</p>
-                        <p class="text-2xl font-bold">{{ __('dashboard.get_started') }}</p>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">{{ __('dashboard.total_forms') }}</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $stats['total_forms'] ?? 0 }}</p>
                     </div>
-                    <div class="bg-white bg-opacity-20 rounded-full p-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    <div class="bg-purple-100 dark:bg-purple-900 rounded-full p-3">
+                        <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
                 </div>
@@ -124,13 +128,13 @@
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <a href="#" class="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
+                        <a href="{{ route('forms.create') }}" class="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
-                            {{ __('dashboard.create_form') }}
+                            {{ __('forms.create_form') }}
                         </a>
-                        <a href="#" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-20 text-white rounded-lg font-semibold hover:bg-opacity-30 transition border border-white border-opacity-30">
+                        <a href="{{ route('forms.index') }}" class="inline-flex items-center px-6 py-3 bg-white bg-opacity-20 text-white rounded-lg font-semibold hover:bg-opacity-30 transition border border-white border-opacity-30">
                             {{ __('dashboard.view_all') }}
                         </a>
                     </div>
@@ -153,10 +157,10 @@
                             <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition">
                                 <div class="flex items-center">
                                     <div class="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center text-white font-bold mr-3">
-                                        {{ strtoupper(substr($company->name, 0, 1)) }}
+                                        {{ strtoupper(substr($company->getTranslatedName(), 0, 1)) }}
                                     </div>
                                     <div>
-                                        <a href="{{ route('companies.index', $company) }}" class="font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">{{ $company->name }}</a>
+                                        <a href="{{ route('companies.index', $company) }}" class="font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">{{ $company->getTranslatedName() }}</a>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">{{ $company->created_at->diffForHumans() }}</p>
                                     </div>
                                 </div>
@@ -181,6 +185,50 @@
                     @endif
                 </div>
 
+                <!-- Recent Forms -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        {{ __('dashboard.recent_forms') }}
+                    </h3>
+                    @if(isset($stats['recent_forms']) && $stats['recent_forms']->count() > 0)
+                        <div class="space-y-3">
+                            @foreach($stats['recent_forms'] as $form)
+                            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center text-white font-bold mr-3">
+                                        {{ strtoupper(substr($form->getTranslatedTitle(), 0, 1)) }}
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('forms.builder', $form) }}" class="font-semibold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400">{{ Str::limit($form->getTranslatedTitle(), 20) }}</a>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ $form->created_at->diffForHumans() }}</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full
+                                    @if($form->status === 'published') text-green-800 bg-green-100 dark:bg-green-900 dark:text-green-200
+                                    @elseif($form->status === 'closed') text-red-800 bg-red-100 dark:bg-red-900 dark:text-red-200
+                                    @else text-gray-800 bg-gray-100 dark:bg-gray-700 dark:text-gray-200
+                                    @endif">
+                                    {{ __('forms.' . $form->status) }}
+                                </span>
+                            </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="text-center py-8">
+                            <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <p class="text-gray-500 dark:text-gray-400">{{ __('dashboard.no_forms_yet') }}</p>
+                            <a href="{{ route('forms.create') }}" class="mt-4 inline-block text-purple-600 dark:text-purple-400 hover:underline">
+                                {{ __('dashboard.create_first_form') }}
+                            </a>
+                        </div>
+                    @endif
+                </div>
+
                 <!-- Quick Stats -->
                 <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-lg p-6 text-white">
                     <h3 class="text-xl font-bold mb-4">{{ __('dashboard.quick_stats') }}</h3>
@@ -193,6 +241,18 @@
                             <span class="text-gray-300">{{ __('dashboard.active_now') }}</span>
                             <span class="text-2xl font-bold text-green-400">{{ $stats['active_companies'] }}</span>
                         </div>
+                        @if(isset($stats['total_forms']))
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-300">{{ __('dashboard.forms_created') }}</span>
+                            <span class="text-2xl font-bold">{{ $stats['total_forms'] }}</span>
+                        </div>
+                        @endif
+                        @if(isset($stats['published_forms']))
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-300">{{ __('dashboard.published_forms') }}</span>
+                            <span class="text-2xl font-bold text-purple-400">{{ $stats['published_forms'] }}</span>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -20,34 +20,77 @@
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{{ __('companies.company_details') }}</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Company Name -->
+                    <!-- Company Name Translations -->
                     <div class="md:col-span-2">
-                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             {{ __('companies.name') }} <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" 
-                               id="name" 
-                               name="name" 
-                               value="{{ old('name', $company->name) }}"
-                               required
-                               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                        @error('name')
-                            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                        @enderror
+                        
+                        <!-- English Name -->
+                        <div class="mb-3">
+                            <label for="name_translations_en" class="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                                {{ __('common.english') }} <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" 
+                                   id="name_translations_en" 
+                                   name="name_translations[en]" 
+                                   value="{{ old('name_translations.en', $company->getTranslatedName('en')) }}"
+                                   required
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                            @error('name_translations.en')
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        
+                        <!-- Arabic Name -->
+                        <div>
+                            <label for="name_translations_ar" class="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                                {{ __('common.arabic') }}
+                            </label>
+                            <input type="text" 
+                                   id="name_translations_ar" 
+                                   name="name_translations[ar]" 
+                                   value="{{ old('name_translations.ar', $company->getTranslatedName('ar')) }}"
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                            @error('name_translations.ar')
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
-                    <!-- Description -->
+                    <!-- Description Translations -->
                     <div class="md:col-span-2">
-                        <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             {{ __('companies.description') }}
                         </label>
-                        <textarea id="description" 
-                                  name="description" 
-                                  rows="4"
-                                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">{{ old('description', $company->description) }}</textarea>
-                        @error('description')
-                            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                        @enderror
+                        
+                        <!-- English Description -->
+                        <div class="mb-3">
+                            <label for="description_translations_en" class="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                                {{ __('common.english') }}
+                            </label>
+                            <textarea id="description_translations_en" 
+                                      name="description_translations[en]" 
+                                      rows="4"
+                                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">{{ old('description_translations.en', $company->getTranslatedDescription('en')) }}</textarea>
+                            @error('description_translations.en')
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        
+                        <!-- Arabic Description -->
+                        <div>
+                            <label for="description_translations_ar" class="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                                {{ __('common.arabic') }}
+                            </label>
+                            <textarea id="description_translations_ar" 
+                                      name="description_translations[ar]" 
+                                      rows="4"
+                                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">{{ old('description_translations.ar', $company->getTranslatedDescription('ar')) }}</textarea>
+                            @error('description_translations.ar')
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- Email -->
@@ -190,7 +233,7 @@
                         @if($company->logo_path)
                             <div class="mb-4">
                                 <img src="{{ Storage::url($company->logo_path) }}" 
-                                     alt="{{ $company->name }}" 
+                                     alt="{{ $company->getTranslatedName() }}" 
                                      class="h-24 w-24 object-contain rounded-lg border border-gray-300 dark:border-gray-600 p-2">
                                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ __('companies.current_logo') }}</p>
                             </div>

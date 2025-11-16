@@ -25,6 +25,11 @@ class QrCodeController extends Controller
      */
     public function show(Company $company, Request $request): Response
     {
+        // Check authorization - user must own the company
+        if ($company->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $size = (int) $request->get('size', 300);
         $format = $request->get('format', 'png');
 
@@ -40,6 +45,11 @@ class QrCodeController extends Controller
      */
     public function download(Company $company, Request $request): Response
     {
+        // Check authorization - user must own the company
+        if ($company->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $size = (int) $request->get('size', 300);
         $format = $request->get('format', 'png');
 
@@ -55,6 +65,11 @@ class QrCodeController extends Controller
      */
     public function base64(Company $company, Request $request)
     {
+        // Check authorization - user must own the company
+        if ($company->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $size = (int) $request->get('size', 300);
         $base64 = $this->qrCodeService->getBase64($company, $size);
 

@@ -28,5 +28,6 @@ return [
     'language' => 'اللغة',
     'english' => 'الإنجليزية',
     'arabic' => 'العربية',
+    'optional' => 'اختياري',
 ];
 

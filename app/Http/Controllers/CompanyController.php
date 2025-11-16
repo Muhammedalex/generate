@@ -17,6 +17,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::where('user_id', Auth::id())
+            ->with('translations')
             ->latest()
             ->paginate(12);
 
@@ -44,11 +45,32 @@ class CompanyController extends Controller
             $data['logo_path'] = $logoPath;
         }
 
-        // Generate slug if not provided
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['name']);
+        // Extract translations from data
+        $translations = [];
+        $translatableFields = ['name', 'description'];
+        
+        foreach ($translatableFields as $field) {
+            if (isset($data[$field . '_translations']) && is_array($data[$field . '_translations'])) {
+                $translations[$field] = $data[$field . '_translations'];
+                unset($data[$field . '_translations']);
+            } elseif (isset($data[$field])) {
+                // If single value provided, treat as English
+                $translations[$field] = ['en' => $data[$field]];
+                unset($data[$field]);
+            }
         }
 
+        // Validate English translation is required
+        if (empty($translations['name']['en'])) {
+            return back()->withErrors(['name_translations.en' => 'English translation for name is required.'])->withInput();
+        }
+
+        // Set user_id
+        $data['user_id'] = Auth::id();
+        
+        // Generate slug from English name
+        $data['slug'] = \Illuminate\Support\Str::slug($translations['name']['en']);
+        
         // Ensure slug is unique
         $originalSlug = $data['slug'];
         $counter = 1;
@@ -57,15 +79,15 @@ class CompanyController extends Controller
             $counter++;
         }
 
-        // Set user_id
-        $data['user_id'] = Auth::id();
-
-        // Handle translations - Laravel will automatically cast to JSON
-        // No need to manually encode since we have it in $casts
-
+        // Create company
         $company = Company::create($data);
 
-        return redirect()->route('companies.show', $company)
+        // Save translations
+        foreach ($translations as $field => $values) {
+            $company->setTranslations($field, $values);
+        }
+
+        return redirect()->route('company.show', $company->slug)
             ->with('success', __('companies.created_successfully'));
     }
 
@@ -80,6 +102,8 @@ class CompanyController extends Controller
             abort(404);
         }
 
+        $company->load('translations');
+
         return view('companies.show', compact('company'));
     }
 
@@ -93,6 +117,8 @@ class CompanyController extends Controller
             abort(403);
         }
 
+        $company->load('translations');
+
         return view('companies.details', compact('company'));
     }
 
@@ -105,6 +131,8 @@ class CompanyController extends Controller
         if ($company->user_id !== Auth::id()) {
             abort(403);
         }
+
+        $company->load('translations');
 
         return view('companies.edit', compact('company'));
     }
@@ -132,25 +160,50 @@ class CompanyController extends Controller
             $data['logo_path'] = $logoPath;
         }
 
-        // Generate slug if not provided and name changed
-        if (empty($data['slug']) && $data['name'] !== $company->name) {
-            $data['slug'] = Str::slug($data['name']);
-            
-            // Ensure slug is unique (excluding current company)
-            $originalSlug = $data['slug'];
-            $counter = 1;
-            while (Company::where('slug', $data['slug'])->where('id', '!=', $company->id)->exists()) {
-                $data['slug'] = $originalSlug . '-' . $counter;
-                $counter++;
+        // Extract translations from data
+        $translations = [];
+        $translatableFields = ['name', 'description'];
+        
+        foreach ($translatableFields as $field) {
+            if (isset($data[$field . '_translations']) && is_array($data[$field . '_translations'])) {
+                $translations[$field] = $data[$field . '_translations'];
+                unset($data[$field . '_translations']);
+            } elseif (isset($data[$field])) {
+                // If single value provided, treat as English
+                $translations[$field] = ['en' => $data[$field]];
+                unset($data[$field]);
             }
         }
 
-        // Handle translations - Laravel will automatically cast to JSON
-        // No need to manually encode since we have it in $casts
+        // Validate English translation is required if name is being updated
+        if (isset($translations['name']) && empty($translations['name']['en'])) {
+            return back()->withErrors(['name_translations.en' => 'English translation for name is required.'])->withInput();
+        }
 
+        // Update slug if name is being updated
+        if (isset($translations['name']['en'])) {
+            $newSlug = \Illuminate\Support\Str::slug($translations['name']['en']);
+            if ($newSlug !== $company->slug) {
+                // Ensure slug is unique
+                $originalSlug = $newSlug;
+                $counter = 1;
+                while (Company::where('slug', $newSlug)->where('id', '!=', $company->id)->exists()) {
+                    $newSlug = $originalSlug . '-' . $counter;
+                    $counter++;
+                }
+                $data['slug'] = $newSlug;
+            }
+        }
+
+        // Update company
         $company->update($data);
 
-        return redirect()->route('companies.show', $company)
+        // Save translations
+        foreach ($translations as $field => $values) {
+            $company->setTranslations($field, $values);
+        }
+
+        return redirect()->route('company.show', $company->slug)
             ->with('success', __('companies.updated_successfully'));
     }
 

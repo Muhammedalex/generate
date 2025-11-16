@@ -32,7 +32,7 @@
                 <div class="flex justify-between items-center h-16">
                     <div class="flex items-center">
                         <!-- Logo -->
-                        <div class="flex-shrink-0 flex items-center">
+                        <div class="shrink-0 flex items-center">
                             <a href="{{ route('home') }}" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
                                 {{ __('common.app_name') }}
                             </a>
@@ -40,14 +40,19 @@
 
                         <!-- Navigation Links -->
                         @auth
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:mr-10 sm:flex">
-                            <a href="{{ route('dashboard') }}" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-600 transition duration-150 ease-in-out {{ request()->routeIs('dashboard') ? 'border-indigo-500 text-gray-900 dark:text-white' : '' }}">
-                                {{ __('common.dashboard') }}
-                            </a>
-                            <a href="{{ route('companies.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-600 transition duration-150 ease-in-out {{ request()->routeIs('companies.*') ? 'border-indigo-500 text-gray-900 dark:text-white' : '' }}">
-                                {{ __('companies.companies') }}
-                            </a>
-                        </div>
+                            @if(Auth::user()->role === 'admin')
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:mr-10 sm:flex">
+                                <a href="{{ route('dashboard') }}" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-600 transition duration-150 ease-in-out {{ request()->routeIs('dashboard') ? 'border-indigo-500 text-gray-900 dark:text-white' : '' }}">
+                                    {{ __('common.dashboard') }}
+                                </a>
+                                <a href="{{ route('companies.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-600 transition duration-150 ease-in-out {{ request()->routeIs('companies.*') ? 'border-indigo-500 text-gray-900 dark:text-white' : '' }}">
+                                    {{ __('companies.companies') }}
+                                </a>
+                                <a href="{{ route('forms.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-600 transition duration-150 ease-in-out {{ request()->routeIs('forms.*') ? 'border-indigo-500 text-gray-900 dark:text-white' : '' }}">
+                                    {{ __('forms.forms') }}
+                                </a>
+                            </div>
+                            @endif
                         @endauth
                     </div>
 
@@ -57,11 +62,11 @@
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open" 
                                     class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition">
-                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
                                 </svg>
                                 <span class="whitespace-nowrap">{{ app()->getLocale() === 'en' ? __('common.english') : __('common.arabic') }}</span>
-                                <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" :class="{ 'rotate-180': open }">
+                                <svg class="w-4 h-4 shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" :class="{ 'rotate-180': open }">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
@@ -139,7 +144,7 @@
         <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
             <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                 <p class="text-center text-sm text-gray-500 dark:text-gray-400">
-                    &copy; {{ date('Y') }} {{ __('common.app_name') }}. {{ __('common.all_rights_reserved') }}
+                    &copy; {{ date('Y') }} Muhammed Aymen Kamal. {{ __('common.all_rights_reserved') }}
                 </p>
             </div>
         </footer>

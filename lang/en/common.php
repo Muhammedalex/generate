@@ -28,5 +28,6 @@ return [
     'language' => 'Language',
     'english' => 'English',
     'arabic' => 'Arabic',
+    'optional' => 'Optional',
 ];
 

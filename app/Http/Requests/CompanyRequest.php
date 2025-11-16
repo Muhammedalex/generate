@@ -25,12 +25,10 @@ class CompanyRequest extends FormRequest
         $companyId = $this->route('company')?->id;
 
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'name_translations' => ['nullable', 'array'],
-            'name_translations.en' => ['nullable', 'string', 'max:255'],
+            'name_translations' => ['required', 'array'],
+            'name_translations.en' => ['required', 'string', 'max:255'],
             'name_translations.ar' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('companies', 'slug')->ignore($companyId)],
-            'description' => ['nullable', 'string'],
             'description_translations' => ['nullable', 'array'],
             'description_translations.en' => ['nullable', 'string'],
             'description_translations.ar' => ['nullable', 'string'],

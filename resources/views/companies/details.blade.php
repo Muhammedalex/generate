@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $company->name . ' - ' . __('companies.company_details'))
+@section('title', $company->getTranslatedName() . ' - ' . __('companies.company_details'))
 
 @php
     use Illuminate\Support\Facades\Storage;
@@ -13,7 +13,7 @@
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">{{ $company->name }}</h1>
+                    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">{{ $company->getTranslatedName() }}</h1>
                     <p class="text-gray-600 dark:text-gray-400">{{ __('companies.company_details') }}</p>
                 </div>
                 <div class="flex items-center gap-4">
@@ -49,7 +49,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ __('companies.logo') }}</label>
                             <img src="{{ Storage::url($company->logo_path) }}" 
-                                 alt="{{ $company->name }}" 
+                                 alt="{{ $company->getTranslatedName() }}" 
                                  class="h-32 w-32 object-contain rounded-lg border border-gray-300 dark:border-gray-600 p-2">
                         </div>
                         @endif
@@ -57,14 +57,14 @@
                         <!-- Name -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ __('companies.name') }}</label>
-                            <p class="text-lg text-gray-900 dark:text-white">{{ $company->name }}</p>
+                            <p class="text-lg text-gray-900 dark:text-white">{{ $company->getTranslatedName() }}</p>
                         </div>
 
                         <!-- Description -->
-                        @if($company->description)
+                        @if($company->getTranslatedDescription())
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ __('companies.description') }}</label>
-                            <p class="text-gray-900 dark:text-white">{{ $company->description }}</p>
+                            <p class="text-gray-900 dark:text-white">{{ $company->getTranslatedDescription() }}</p>
                         </div>
                         @endif
 
