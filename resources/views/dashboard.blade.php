@@ -156,7 +156,7 @@
                                         {{ strtoupper(substr($company->name, 0, 1)) }}
                                     </div>
                                     <div>
-                                        <a href="{{ route('companies.show', $company) }}" class="font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">{{ $company->name }}</a>
+                                        <a href="{{ route('companies.index', $company) }}" class="font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">{{ $company->name }}</a>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">{{ $company->created_at->diffForHumans() }}</p>
                                     </div>
                                 </div>
