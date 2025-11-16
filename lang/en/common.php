@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'app_name' => 'Generate',
+    'welcome' => 'Welcome',
+    'dashboard' => 'Dashboard',
+    'home' => 'Home',
+    'get_started' => 'Get Started',
+    'sign_in' => 'Sign In',
+    'create_your_account' => 'Create Your Account',
+    'ready_to_get_started' => 'Ready to get started?',
+    'join_us_today' => 'Join us today and start creating amazing company profiles and forms.',
+    'welcome_to' => 'Welcome to',
+    'welcome_description' => 'Create company profiles with QR codes and build powerful forms like Google Forms. Simple, modern, and efficient.',
+    'company_data' => 'Company Data',
+    'form_builder' => 'Form Builder',
+    'manage_companies' => 'Manage Companies',
+    'create_form' => 'Create Form',
+    'company_data_description' => 'Manage your company information, brand identity, and social media links. Generate QR codes that link to beautiful company profile pages.',
+    'form_builder_description' => 'Create custom forms and surveys with full customization options. Collect responses, analyze data, and export results.',
+    'company_information_management' => 'Company information management',
+    'brand_colors_logo' => 'Brand colors and logo',
+    'qr_code_generation' => 'QR code generation',
+    'question_types' => '17+ question types',
+    'full_customization' => 'Full customization',
+    'response_analytics' => 'Response analytics',
+    'all_rights_reserved' => 'All rights reserved.',
+    'language' => 'Language',
+    'english' => 'English',
+    'arabic' => 'Arabic',
+];
+

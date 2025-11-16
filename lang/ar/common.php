@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'app_name' => 'Generate',
+    'welcome' => 'مرحباً',
+    'dashboard' => 'لوحة التحكم',
+    'home' => 'الرئيسية',
+    'get_started' => 'ابدأ الآن',
+    'sign_in' => 'تسجيل الدخول',
+    'create_your_account' => 'إنشاء حسابك',
+    'ready_to_get_started' => 'هل أنت مستعد للبدء؟',
+    'join_us_today' => 'انضم إلينا اليوم وابدأ في إنشاء ملفات شركات و نماذج رائعة.',
+    'welcome_to' => 'مرحباً بك في',
+    'welcome_description' => 'أنشئ ملفات شركات مع رموز QR وقم ببناء نماذج قوية مثل نماذج Google. بسيط وحديث وفعال.',
+    'company_data' => 'بيانات الشركة',
+    'form_builder' => 'منشئ النماذج',
+    'manage_companies' => 'إدارة الشركات',
+    'create_form' => 'إنشاء نموذج',
+    'company_data_description' => 'إدارة معلومات شركتك وهوية العلامة التجارية وروابط وسائل التواصل الاجتماعي. قم بإنشاء رموز QR التي ترتبط بصفحات ملف الشركة الجميلة.',
+    'form_builder_description' => 'أنشئ نماذج واستطلاعات مخصصة مع خيارات تخصيص كاملة. جمع الردود وتحليل البيانات وتصدير النتائج.',
+    'company_information_management' => 'إدارة معلومات الشركة',
+    'brand_colors_logo' => 'ألوان العلامة التجارية والشعار',
+    'qr_code_generation' => 'إنشاء رمز QR',
+    'question_types' => 'أكثر من 17 نوع سؤال',
+    'full_customization' => 'تخصيص كامل',
+    'response_analytics' => 'تحليلات الردود',
+    'all_rights_reserved' => 'جميع الحقوق محفوظة.',
+    'language' => 'اللغة',
+    'english' => 'الإنجليزية',
+    'arabic' => 'العربية',
+];
+
